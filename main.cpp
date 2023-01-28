@@ -1,38 +1,29 @@
 #include <iostream>
-#include <math.h>
-using namespace std;
-bool checkSnt(int n){
-    if(n == 0 || n == 1)
-        return false;
-    else
-        for(int i = 2; i <= sqrt(n); i++)
-            if(n % i == 0)
-                return 0;
-    return 1;
-}
 
-void xuat(int n){
-    for(int i = n; i >= 2; i--)
-        if(checkSnt(i) == 1 && n % i == 0){
-            cout << i;
-            n /= i;
-            if(n != 1)
-                cout << " x ";
-            i = n;
+#define max 100000
+using namespace std;
+
+int main()
+{
+    int t; cin >> t;
+    while (t--) {
+        long n; cin >> n;
+        long a[max];
+        long begins = 0, i = 2;
+        // luu so nguyen to vao mang a
+        while (i * i <= n) {
+            if (n % i == 0) {
+                a[begins++] = i;
+                n /= i;
+                continue;
+            }
             i++;
         }
-}
-
-int main(){
-    int n, a[10000];
-    cin >> n;
-    
-    for(int i = 0; i < n; i++)
-        cin >> a[i];
-    
-    for(int i = 0; i < n; i++){
-        xuat(a[i]);
+        if (n != 1)
+            a[begins] = n;
+        // xuat
+        for (int j = begins; j >= 0; j--)
+            j == 0 ? (cout << a[0]) : cout << a[j] << " x ";
         cout << endl;
     }
-            
 }
